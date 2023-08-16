@@ -13,13 +13,15 @@ class PiGi:
         print('Device MAC: {}'.format(self.mac))
 
         self.value = -1
+        self.last_success = 0
 
         # Enter main loop
         self.main()
 
     def main(self):
         while True:
-            self.get_value()
+            if time.time() - self.last_success > DELAY_BETWEEN_DB_SUCCESS:
+                self.get_value()
 
             time.sleep(DELAY_BETWEEN_DB_ATTEMPTS)
 
@@ -36,8 +38,11 @@ class PiGi:
             if 'Item' in r.keys():
                 self.value = r['Item']['value']
                 print(self.value)
+                self.last_success = time.time()
+                return True
             else:
                 print('Error == MAC address not in database!')
+                return False
 
         except:
             print('ERROR == Unable to connect to database')
