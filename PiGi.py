@@ -1,16 +1,19 @@
 import boto3
 from uuid import getnode
 import time
+import logging
 
-DELAY_BETWEEN_DB_ATTEMPTS = 10
-DELAY_BETWEEN_DB_SUCCESS = 30
+DELAY_BETWEEN_DB_ATTEMPTS = 5
+DELAY_BETWEEN_DB_SUCCESS = 5
+
+logging.basicConfig(level=logging.INFO)
 
 class PiGi:
 
     def __init__(self):
         # Get devices MAC address
         self.mac = hex(getnode())[2:]
-        print('Device MAC: {}'.format(self.mac))
+        logging.info('Device MAC: {}'.format(self.mac))
 
         self.value = -1
         self.last_success = 0
@@ -37,7 +40,7 @@ class PiGi:
             r = table.get_item(Key = {'mac':self.mac})
             if 'Item' in r.keys():
                 self.value = r['Item']['value']
-                print(self.value)
+                logging.info(self.value)
                 self.last_success = time.time()
                 return True
             else:
