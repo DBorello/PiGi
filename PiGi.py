@@ -2,6 +2,8 @@ import boto3
 from uuid import getnode
 import time
 import logging
+from waveshare_epd import epd3in7
+from PIL import Image,ImageDraw,ImageFont
 
 DELAY_BETWEEN_DB_ATTEMPTS = 5
 DELAY_BETWEEN_DB_SUCCESS = 5
@@ -17,6 +19,13 @@ class PiGi:
 
         self.value = -1
         self.last_success = 0
+
+        # Setup display
+        self.epd = epd3in7.EPD()
+        self.epd.init(0)
+        self.epd.Clear(0xFF,0)
+
+        self.display_splash()
 
         # Enter main loop
         self.main()
@@ -50,6 +59,15 @@ class PiGi:
         except:
             print('ERROR == Unable to connect to database')
             return False
+
+    def display_splash(self):
+        font36 = ImageFont.truetype('Font.ttc', 36)
+
+        Himage = Image.new('L', (self.epd.height, self.epd.width), 0xFF)  # 0xFF: clear the frame
+        draw = ImageDraw.Draw(Himage)
+
+        
+        draw.text((10, 0), 'hello world', font = font36, fill = 0)
 
 if __name__ == "__main__":
     PiGi()
