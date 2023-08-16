@@ -66,8 +66,8 @@ class PiGi:
         Himage = Image.new('L', (self.epd.height, self.epd.width), 0xFF)  # 0xFF: clear the frame
         draw = ImageDraw.Draw(Himage)
 
-        
         draw.text((10, 0), 'hello world', font = font36, fill = 0)
+        self.epd.display_4Gray(self.epd.getbuffer_4Gray(Himage))
 
 if __name__ == "__main__":
     PiGi()
