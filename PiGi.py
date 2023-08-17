@@ -18,12 +18,12 @@ class PiGi:
         logging.info('Device MAC: {}'.format(self.mac))
 
         self.value = -1
+        self.msg = ''
         self.last_success = 0
 
         # Setup display
         self.epd = epd3in7.EPD()
-        self.epd.init(0)
-        self.epd.Clear(0xFF,0)
+       
 
         self.display_splash()
 
@@ -44,30 +44,56 @@ class PiGi:
                         aws_access_key_id = 'AKIA4WTCSRYNTMBKC5GC',
                         aws_secret_access_key = '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')
             table = dynamo_client.Table('PiGi')
-
-            # Fetch value
             r = table.get_item(Key = {'mac':self.mac})
-            if 'Item' in r.keys():
-                self.value = r['Item']['value']
-                logging.info(self.value)
-                self.last_success = time.time()
-                return True
-            else:
-                print('Error == MAC address not in database!')
-                return False
-
-        except:
+        except Exception as e:
+            print(e)
             print('ERROR == Unable to connect to database')
             return False
 
+        # Fetch value
+        
+        if 'Item' in r.keys():
+            new_value = r['Item']['value']
+            self.msg = r['Item'].get('msg','')
+            self.last_success = time.time()
+            logging.info(new_value)
+
+            if new_value != self.value:
+                self.value = new_value      
+                self.display_value()
+
+            
+
+            return True
+        else:
+            print('Error == MAC address not in database!')
+            return False
+
+
+
     def display_splash(self):
-        font36 = ImageFont.truetype('Font.ttc', 36)
+        self.epd.init(0)
+        self.epd.Clear(0xFF,0)
 
         Himage = Image.new('L', (self.epd.height, self.epd.width), 0xFF)  # 0xFF: clear the frame
         draw = ImageDraw.Draw(Himage)
 
-        draw.text((10, 0), 'hello world', font = font36, fill = 0)
+        draw.text((self.epd.height/2, 100), 'PiGi'.format(self.value), font = ImageFont.truetype('Font.ttc', 96), fill = 0, anchor = 'mm')
+        draw.text((self.epd.height/2, 260), 'MAC: {}'.format(self.mac), font = ImageFont.truetype('Font.ttc', 48), fill = 0, anchor = 'mb')
         self.epd.display_4Gray(self.epd.getbuffer_4Gray(Himage))
+        self.epd.sleep()
+
+    def display_value(self):
+        self.epd.init(0)
+        self.epd.Clear(0xFF,0)
+
+        Himage = Image.new('L', (self.epd.height, self.epd.width), 0xFF)  # 0xFF: clear the frame
+        draw = ImageDraw.Draw(Himage)
+
+        draw.text((self.epd.height/2, 100), '$ {:,.0f}'.format(self.value), font = ImageFont.truetype('Font.ttc', 96), fill = 0, anchor = 'mm')
+        draw.text((self.epd.height/2, 260), self.msg, font = ImageFont.truetype('Font.ttc', 48), fill = 0, anchor = 'mb')
+        self.epd.display_4Gray(self.epd.getbuffer_4Gray(Himage))
+        self.epd.sleep()
 
 if __name__ == "__main__":
     PiGi()
