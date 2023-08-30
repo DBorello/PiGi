@@ -4,7 +4,7 @@
 echo "deb http://repository.nymea.io bullseye rpi" | tee /etc/apt/sources.list.d/nymea.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-key A1A19ED6
 apt update
-apt -y install nymea-networkmanager dirmngr
+apt -y install bluez nymea-networkmanager dirmngr 
 
 # Install python dependencies
 apt -y install gcc-arm-linux-gnueabihf python3-pil
