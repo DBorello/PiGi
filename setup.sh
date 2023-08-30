@@ -1,4 +1,4 @@
-# Enable SPI (TODO Fine dietpi-config way)
+# Enable SPI & bluetooth (TODO Fine dietpi-config way)
 
 # Install BerryLan
 echo "deb http://repository.nymea.io bullseye rpi" | tee /etc/apt/sources.list.d/nymea.list
