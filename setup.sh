@@ -5,5 +5,5 @@ git clone https://github.com/DBorello/PiGi.git
 
 pip install boto3
 
-apt install gcc-arm-linux-gnueabihf
+apt -y install gcc-arm-linux-gnueabihf python3-pil
 pip install spidev
