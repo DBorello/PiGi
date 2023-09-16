@@ -25,3 +25,6 @@ sudo sed -i 's/AdvertiseName=BT WLAN setup/AdvertiseName=PiGi/g' /etc/nymea/nyme
 sudo cp /home/nymea/PiGi/PiGi.service  /etc/systemd/system/PiGi.service
 sudo chmod 644 /etc/systemd/system/PiGi.service
 sudo systemctl enable PiGi.service
+
+# Reboot
+sudo reboot
