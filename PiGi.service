@@ -5,6 +5,8 @@ Description=PiGi service
 Type=simple
 WorkingDirectory=/home/nymea/PiGi
 ExecStart=/usr/bin/python /home/nymea/PiGi/PiGi.py
+Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
