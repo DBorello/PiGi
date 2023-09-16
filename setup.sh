@@ -22,10 +22,14 @@ git clone https://github.com/DBorello/PiGi.git
 # SSH to IP Shown.  Username: nymea Password: nymea
 
 # Install dependencies
-sudo apt -y install git python3-pil
+sudo apt -y install git python3-pil python3-boto3
 
 # Install python depencencies
 pip install boto3
 
 # Enable SPI
 echo "dtparam=spi=on" |sudo tee -a /boot/config.txt
+
+# Configure nymea Berrylane
+sudo sed -i 's/Mode=offline/Mode=always/g' /etc/nymea/nymea-networkmanager.conf
+sudo sed -i 's/AdvertiseName=BT WLAN setup/AdvertiseName=PiGi/g' /etc/nymea/nymea-networkmanager.conf
