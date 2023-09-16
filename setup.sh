@@ -1,3 +1,4 @@
+## This is DietPi
 # Enable SPI & bluetooth (TODO Fine dietpi-config way)
 
 # Install BerryLan
@@ -12,3 +13,16 @@ pip install spidev boto3
 
 # Clone repository
 git clone https://github.com/DBorello/PiGi.git
+
+## Berry Lan
+# Burn BerryLan Image from https://github.com/nymea/berrylan
+# Used bullseye-2023-08-18
+
+# Find using BerryLan iOS App.  Join WiFi network
+# SSH to IP Shown.  Username: nymea Password: nymea
+
+# Install dependencies
+sudo apt -y install git python3-pil
+
+# Install python depencencies
+pip install boto3
