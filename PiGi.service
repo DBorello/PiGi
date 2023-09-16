@@ -3,6 +3,7 @@ Description=PiGi service
 
 [Service]
 Type=simple
+WorkingDirectory=/home/nymea/PiGi
 ExecStart=/usr/bin/python /home/nymea/PiGi/PiGi.py
 
 [Install]
