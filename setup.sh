@@ -26,3 +26,6 @@ sudo apt -y install git python3-pil
 
 # Install python depencencies
 pip install boto3
+
+# Enable SPI
+echo "dtparam=spi=on" |sudo tee -a /boot/config.txt
