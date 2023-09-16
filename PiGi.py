@@ -14,7 +14,8 @@ class PiGi:
 
     def __init__(self):
         # Get devices MAC address
-        self.mac = hex(getnode())[2:]
+        f = open('/sys/class/net/wlan0/address')
+        self.mac = f.read().strip().replace(':','')
         logging.info('Device MAC: {}'.format(self.mac))
 
         self.value = -1
