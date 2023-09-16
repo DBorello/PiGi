@@ -5,6 +5,8 @@
 # Find using BerryLan iOS App.  Join WiFi network
 # SSH to IP Shown.  Username: nymea Password: nymea
 # Run this command 
+#  curl -s https://raw.githubusercontent.com/DBorello/PiGi/main/setup.sh | bash
+
 
 # Install dependencies
 sudo apt -y install git python3-pil python3-boto3
