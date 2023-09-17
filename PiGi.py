@@ -42,6 +42,7 @@ class PiGi:
 
     def get_value(self):
         try:
+            self.get_mac()
             # Connect to database
             dynamo_client  =  boto3.resource(service_name = 'dynamodb',region_name = 'us-east-2',
                         aws_access_key_id = 'AKIA4WTCSRYNTMBKC5GC',
