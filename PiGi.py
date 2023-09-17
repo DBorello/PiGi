@@ -13,10 +13,7 @@ logging.basicConfig(level=logging.INFO)
 class PiGi:
 
     def __init__(self):
-        # Get devices MAC address
-        
-
-
+        self.get_mac()
         self.value = -1
         self.msg = ''
         self.last_success = 0
