@@ -11,6 +11,9 @@
 # Install dependencies
 sudo apt -y install git python3-pil python3-boto3
 
+# Install PiGi
+git clone https://github.com/DBorello/PiGi.git
+
 # Enable SPI
 echo "dtparam=spi=on" |sudo tee -a /boot/config.txt
 
