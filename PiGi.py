@@ -14,9 +14,8 @@ class PiGi:
 
     def __init__(self):
         # Get devices MAC address
-        f = open('/sys/class/net/wlan0/address')
-        self.mac = f.read().strip().replace(':','')
-        logging.info('Device MAC: {}'.format(self.mac))
+        
+
 
         self.value = -1
         self.msg = ''
@@ -31,6 +30,12 @@ class PiGi:
         # Enter main loop
         self.main()
 
+    def get_mac(self):
+        f = open('/sys/class/net/wlan0/address')
+        self.mac = f.read().strip().replace(':','')
+        f.close()
+        logging.info('Device MAC: {}'.format(self.mac))
+    
     def main(self):
         while True:
             if time.time() - self.last_success > DELAY_BETWEEN_DB_SUCCESS:
