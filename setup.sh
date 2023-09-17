@@ -26,5 +26,9 @@ sudo cp /home/nymea/PiGi/PiGi.service  /etc/systemd/system/PiGi.service
 sudo chmod 644 /etc/systemd/system/PiGi.service
 sudo systemctl enable PiGi.service
 
+# Set SD Card read-only
+sudo raspi-config nonint do_overlayfs 1
+sed -i /etc/fstab -e "s/\(.*\/boot.*\)defaults\(.*\)/\1defaults,ro\2/"
+
 # Reboot
 sudo reboot
