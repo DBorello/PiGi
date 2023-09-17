@@ -28,7 +28,7 @@ sudo systemctl enable PiGi.service
 
 # Set SD Card read-only
 sudo raspi-config nonint do_overlayfs 1
-sed -i /etc/fstab -e "s/\(.*\/boot.*\)defaults\(.*\)/\1defaults,ro\2/"
+sudo sed -i /etc/fstab -e "s/\(.*\/boot.*\)defaults\(.*\)/\1defaults,ro\2/"
 
 # Reboot
 sudo reboot
