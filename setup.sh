@@ -30,5 +30,8 @@ sudo systemctl enable PiGi.service
 sudo raspi-config nonint do_overlayfs 0 # To disable: sudo raspi-config nonint do_overlayfs 1
 sudo sed -i /etc/fstab -e "s/\(.*\/boot.*\)defaults\(.*\)/\1defaults,ro\2/"
 
+# Limit log size
+echo "SystemMaxUse=10M" |sudo tee -a /etc/systemd/journald.conf 
+
 # Reboot
 sudo reboot
